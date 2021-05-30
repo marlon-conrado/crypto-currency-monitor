@@ -3,7 +3,7 @@ import { ApiErrors } from './errors';
 
 @injectable()
 export class ApiResponse {
-  public Error(res: any, error: Error) {
+  public ERROR(res: any, error: Error) {
     const exception = environment.isDevelopment ? error : {};
 
     if (ApiErrors[error?.name]) {
@@ -23,7 +23,7 @@ export class ApiResponse {
     });
   }
 
-  public Ok(res: any, data = {}) {
+  public OK(res: any, data = {}) {
     return res.status(200).json({
       data,
     });

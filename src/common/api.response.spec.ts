@@ -8,7 +8,7 @@ describe('ApiResponse', () => {
     apiResponse = new ApiResponse();
   });
 
-  describe('Error', () => {
+  describe('ERROR', () => {
     it('should response with custom error', () => {
       const fn = jest.fn();
       const res = {
@@ -17,7 +17,7 @@ describe('ApiResponse', () => {
         }),
       };
 
-      apiResponse.Error(
+      apiResponse.ERROR(
         res,
         new ApplicationError(ApplicationErrors.UserNotFound),
       );
@@ -35,7 +35,7 @@ describe('ApiResponse', () => {
         }),
       };
 
-      apiResponse.Error(res, new Error('Some Error'));
+      apiResponse.ERROR(res, new Error('Some Error'));
 
       expect(fn).toBeCalledWith({
         error: { code: 'InternalError', exception: {} },
@@ -51,7 +51,7 @@ describe('ApiResponse', () => {
           json: fn,
         }),
       };
-      apiResponse.Ok(res, { id: '#955' });
+      apiResponse.OK(res, { id: '#955' });
       expect(fn).toBeCalledWith({ data: { id: '#955' } });
     });
   });

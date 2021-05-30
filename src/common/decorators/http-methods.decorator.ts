@@ -5,9 +5,9 @@ export function HttpMethod(method: string, uri: string, cb: any) {
   app[method](uri, async (req: any, res: any) => {
     try {
       const data = await cb(req);
-      return new ApiResponse().Ok(res, data);
+      return new ApiResponse().OK(res, data);
     } catch (e) {
-      return new ApiResponse().Error(res, e);
+      return new ApiResponse().ERROR(res, e);
     }
   });
 }
