@@ -10,7 +10,7 @@ export const environment = {
     name: process.env.DB_NAME || 'dbname',
     userName: process.env.DB_USER_NAME || 'username',
     password: process.env.DB_PASS || '123',
-    port: 5432,
+    port: Number(process.env.DB_PORT) || 5432,
   },
   isDevelopment: process.env.NODE_ENV === 'development',
   saltRounds: 10,
