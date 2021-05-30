@@ -1,6 +1,8 @@
-import { app } from '../common';
+import { Get } from '../common';
 
-app.get('/crypto_currency', getCryptoCurrencies);
-export async function getCryptoCurrencies(req: any, res: any) {
-  return res.json('Hello!');
+export class CryptoCurrencyController {
+  @Get('/crypto_currency')
+  get() {
+    return 'Hello!';
+  }
 }

@@ -1,4 +1,4 @@
-import { createUser } from './user.controller';
+import { UserController } from './user.controller';
 import { SignUpUserService } from '../services';
 import { ApiResponse } from '../common';
 
@@ -23,9 +23,8 @@ describe('UserController', () => {
           preferredCurrency: 3,
         },
       };
-      const res = {};
 
-      await createUser(req, res);
+      await new UserController().createUser(req);
       expect(SignUpUserService.prototype.signUp).toBeCalledWith({
         lastName: 'Conrado',
         name: 'Marlon',

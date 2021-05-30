@@ -1,5 +1,5 @@
 import { injectable, environment } from '.';
-import { Errors } from '../errors';
+import { Errors } from './errors';
 
 @injectable()
 export class ApiResponse {

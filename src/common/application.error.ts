@@ -1,4 +1,4 @@
-import { ApplicationErrors } from '../errors/application.errors';
+import { ApplicationErrors } from './errors';
 
 export class ApplicationError extends Error {
   constructor(name: ApplicationErrors) {

@@ -1,4 +1,5 @@
-import { app, ApiResponse } from '../';
+import { ApiResponse } from '../';
+import { app } from '../../app';
 
 function HttpMethod(method: string, uri: string, cb: any) {
   app[method](uri, async (req: any, res: any) => {
@@ -18,5 +19,15 @@ export function Post(uri: string) {
     descriptor: PropertyDescriptor,
   ) {
     HttpMethod('post', uri, descriptor.value);
+  };
+}
+
+export function Get(uri: string) {
+  return function (
+    target: any,
+    propertyKey: string,
+    descriptor: PropertyDescriptor,
+  ) {
+    HttpMethod('get', uri, descriptor.value);
   };
 }

@@ -11,6 +11,7 @@
     "outDir": "./build",
     "baseUrl": "./",
     "incremental": true,
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+  },
+  "exclude": ["src/**/*.spec.ts"]
 }

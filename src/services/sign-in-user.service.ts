@@ -1,6 +1,6 @@
 import { injectable, ApplicationError } from '../common';
 import { UserRepository, PasswordRepository } from '../repositories';
-import { ApplicationErrors } from '../errors';
+import { ApplicationErrors } from '../common';
 import { UserAttributes } from '../local';
 
 type Input = {

@@ -1,4 +1,5 @@
-import { app, express, environment } from '../common';
+import { environment } from '../common';
+import { app, express } from '../app';
 
 export const bootServer = () => {
   app.use(express.json({ limit: '50mb' }));
