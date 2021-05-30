@@ -23,7 +23,7 @@ type GetUserDto = {
 
 export class UserController {
   @Post('/login')
-  async getUser(req: GetUserDto) {
+  async login(req: GetUserDto) {
     const data = await signInUserService.login(req.body);
     delete data.password;
 

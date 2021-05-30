@@ -8,14 +8,18 @@ export class ApiResponse {
 
     if (Errors[error?.name]) {
       return res.status(400).json({
-        code: Errors[error.name],
-        exception,
+        error: {
+          code: Errors[error.name],
+          exception,
+        }
       });
     }
 
     return res.status(400).json({
-      code: Errors.InternalError,
-      exception,
+      error: {
+        code: Errors.InternalError,
+        exception,
+      },
     });
   }
 

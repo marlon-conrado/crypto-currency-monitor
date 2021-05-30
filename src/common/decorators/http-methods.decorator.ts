@@ -1,4 +1,4 @@
-import { ApiResponse } from '../';
+import { ApiResponse } from '../api.response';
 import { app } from '../../app';
 
 function HttpMethod(method: string, uri: string, cb: any) {

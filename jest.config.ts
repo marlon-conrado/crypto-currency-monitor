@@ -30,6 +30,8 @@ export default {
     '/node_modules/',
     '<rootDir>/.*/index.ts',
     '<rootDir>/.*/boot-loaders',
+    '<rootDir>/.*/app.ts',
+    '<rootDir>/.*/.*.enum.ts',
     '<rootDir>/.*/sequelize.ts',
     '<rootDir>/.*/environment.ts',
     '<rootDir>/.*/.*.model.ts',

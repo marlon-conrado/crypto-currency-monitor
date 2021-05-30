@@ -3,7 +3,7 @@ import { Model, Optional, DataTypes } from 'sequelize';
 import {
   PreferredCurrencyModel,
   PreferredCurrencyAttributes,
-} from './preferred-currency.local';
+} from './preferred-currency.model';
 
 export interface UserAttributes {
   id?: number;
