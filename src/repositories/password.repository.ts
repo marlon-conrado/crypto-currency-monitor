@@ -1,4 +1,4 @@
-import { injectable } from '../common';
+import { injectable } from '../shared';
 import { HashPasswordLocal } from '../local';
 
 @injectable()

@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { environment, injectable } from '../common';
+import { environment, injectable } from '../shared';
 import util from 'util';
 
 @injectable()

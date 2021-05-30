@@ -1,4 +1,4 @@
-import { injectable } from '../common';
+import { injectable } from '../shared';
 import { UserRepository } from '../repositories';
 import { UserAttributes } from '../local/models';
 

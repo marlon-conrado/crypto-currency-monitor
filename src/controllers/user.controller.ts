@@ -1,4 +1,4 @@
-import { container, Post } from '../common';
+import { container, Post } from '../shared';
 import { SignInUserService, SignUpUserService } from '../services';
 
 const signInUserService = container.resolve(SignInUserService);

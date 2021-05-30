@@ -1,5 +1,5 @@
 import { Sequelize, Dialect } from 'sequelize';
-import { environment } from '../common';
+import { environment } from '../shared';
 
 const sequelize = new Sequelize(
   environment.db.name,

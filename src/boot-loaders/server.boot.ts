@@ -1,4 +1,4 @@
-import { environment } from '../common';
+import { environment } from '../shared';
 import { app, express } from '../app';
 
 export const bootServer = () => {

@@ -1,4 +1,4 @@
-import { injectable } from '../../common';
+import { injectable } from '../../shared';
 import { UserModel, UserAttributes } from '../models';
 
 @injectable()
