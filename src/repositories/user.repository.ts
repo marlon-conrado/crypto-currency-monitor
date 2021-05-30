@@ -1,6 +1,5 @@
 import { injectable } from '../common';
-import { UserLocal, HashPasswordLocal } from '../local';
-import { UserAttributes } from '../local/models';
+import { UserLocal, HashPasswordLocal, UserAttributes } from '../local';
 
 @injectable()
 export class UserRepository {

@@ -1,31 +1,25 @@
 import { injectable, environment } from '.';
-import { Errors } from './errors';
+import { ApiErrors } from './errors';
 
 @injectable()
 export class ApiResponse {
-  public BadRequest(res: any, error: Error) {
+  public Error(res: any, error: Error) {
     const exception = environment.isDevelopment ? error : {};
 
-    if (Errors[error?.name]) {
+    if (ApiErrors[error?.name]) {
       return res.status(400).json({
         error: {
-          code: Errors[error.name],
+          code: ApiErrors[error.name],
           exception,
-        }
+        },
       });
     }
 
-    return res.status(400).json({
+    return res.status(500).json({
       error: {
-        code: Errors.InternalError,
+        code: ApiErrors.InternalError,
         exception,
       },
-    });
-  }
-
-  public Created(res: any, data = {}) {
-    return res.status(201).json({
-      data,
     });
   }
 

@@ -1,43 +1,23 @@
 import bcrypt from 'bcrypt';
 import { environment, injectable } from '../common';
+import util from 'util';
 
 @injectable()
 export class HashPasswordLocal {
   public async hash(password: string): Promise<string> {
     const salt = await this.genSalt();
+    const auxHash = util.promisify<string, string, string>(bcrypt.hash);
 
-    return new Promise((resolve, reject) => {
-      bcrypt.hash(password, salt, (error: Error, hash: string) => {
-        if (error) {
-          return reject(error);
-        }
-
-        return resolve(hash);
-      });
-    });
+    return await auxHash(password, salt);
   }
 
-  public compare(password: string, hash: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      bcrypt.compare(password, hash, (error, result) => {
-        if (error) {
-          return reject(error);
-        }
-
-        return resolve(result);
-      });
-    });
+  public async compare(password: string, hash: string): Promise<boolean> {
+    const auxCompare = util.promisify<string, string, boolean>(bcrypt.compare);
+    return await auxCompare(password, hash);
   }
 
-  private genSalt(): Promise<string> {
-    return new Promise((resolve, reject) => {
-      bcrypt.genSalt(environment.saltRounds, (error: Error, salt: string) => {
-        if (error) {
-          return reject(error);
-        }
-
-        return resolve(salt);
-      });
-    });
+  private async genSalt(): Promise<string> {
+    const auxGenSalt = util.promisify<number, string>(bcrypt.genSalt);
+    return await auxGenSalt(environment.saltRounds);
   }
 }

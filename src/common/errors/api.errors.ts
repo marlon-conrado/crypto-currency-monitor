@@ -1,4 +1,4 @@
-export enum Errors {
+export enum ApiErrors {
   SequelizeUniqueConstraintError = 'E0001',
   InternalError = 'InternalError',
   SequelizeDatabaseError = 'E0002',

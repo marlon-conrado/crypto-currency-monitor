@@ -22,7 +22,7 @@ type GetUserDto = {
 };
 
 export class UserController {
-  @Post('/login')
+  @Post('/user/login')
   async login(req: GetUserDto) {
     const data = await signInUserService.login(req.body);
     delete data.password;
@@ -30,7 +30,7 @@ export class UserController {
     return data;
   }
 
-  @Post('/register')
+  @Post('/user/register')
   async createUser(req: CreateUserDto) {
     const {
       lastName,
@@ -48,6 +48,7 @@ export class UserController {
       preferredCurrencyId,
     });
 
+    delete data.password;
     return data;
   }
 }

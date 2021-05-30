@@ -28,17 +28,11 @@ export default {
   // An array of regexp pattern strings used to skip coverage collection
   coveragePathIgnorePatterns: [
     '/node_modules/',
-    '<rootDir>/.*/index.ts',
     '<rootDir>/.*/boot-loaders',
+    '<rootDir>/.*/index.ts',
     '<rootDir>/.*/app.ts',
-    '<rootDir>/.*/.*.enum.ts',
-    '<rootDir>/.*/sequelize.ts',
     '<rootDir>/.*/environment.ts',
     '<rootDir>/.*/.*.model.ts',
-    '<rootDir>/.*/models.ts',
-    '<rootDir>/.*/config.ts',
-    '<rootDir>/.*/config-dsn.ts',
-    '<rootDir>/.*/types/interfaces/',
   ],
 
   // Indicates which provider should be used to instrument code for coverage
