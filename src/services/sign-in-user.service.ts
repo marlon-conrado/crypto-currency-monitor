@@ -1,11 +1,18 @@
 import { injectable, ApplicationError } from '../shared';
-import { UserRepository, PasswordRepository } from '../repositories';
+import {
+  UserRepository,
+  PasswordRepository,
+  TokenRepository,
+} from '../repositories';
 import { ApplicationErrors } from '../shared';
-import { UserAttributes } from '../local';
 
 type Input = {
   userName: string;
   password: string;
+};
+
+type Output = {
+  token: string;
 };
 
 @injectable()
@@ -13,9 +20,10 @@ export class SignInUserService {
   constructor(
     private userRepository: UserRepository,
     private passwordRepository: PasswordRepository,
+    private tokenRepository: TokenRepository,
   ) {}
 
-  async login(user: Input): Promise<UserAttributes> {
+  async login(user: Input): Promise<Output> {
     const userFound = await this.userRepository.getByUserName(user.userName);
 
     if (!userFound) {
@@ -31,6 +39,12 @@ export class SignInUserService {
       throw new ApplicationError(ApplicationErrors.LoginDoesNotMatch);
     }
 
-    return userFound;
+    const token = await this.tokenRepository.sign({
+      id: userFound.id,
+      name: userFound.name,
+      lastName: userFound.lastName,
+    });
+
+    return { token };
   }
 }

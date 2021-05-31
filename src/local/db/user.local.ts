@@ -1,5 +1,5 @@
 import { injectable } from '../../shared';
-import { UserModel, UserAttributes } from '../models';
+import { UserModel, UserAttributes, PreferredCurrencyModel } from '../models';
 
 @injectable()
 export class UserLocal {
@@ -12,6 +12,21 @@ export class UserLocal {
     return await UserModel.findOne({
       where: { userName },
       raw: true,
+    });
+  }
+
+  async getById(id: number): Promise<UserAttributes> {
+    return await UserModel.findOne({
+      where: { id },
+      include: [
+        {
+          model: PreferredCurrencyModel,
+          as: 'preferredCurrency',
+          required: true,
+        },
+      ],
+      raw: true,
+      nest: true,
     });
   }
 }

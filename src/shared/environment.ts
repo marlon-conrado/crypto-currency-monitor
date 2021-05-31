@@ -14,4 +14,18 @@ export const environment = {
   },
   isDevelopment: process.env.NODE_ENV === 'development',
   saltRounds: 10,
+  token: {
+    privateKey: process.env.TOKEN_PRIVATE_KEY || 'M123456',
+    expiresIn: process.env.TOKEN_EXPIRE_IN || '1h',
+  },
+  endpoints: {
+    coingecko: {
+      base:
+        process.env.COINGECKO_ENDPOINT_BASE_URL ||
+        'https://api.coingecko.com/api/v3',
+      methods: {
+        coinsMarkets: 'coins/markets?vs_currency={q.vsCurrency}',
+      },
+    },
+  },
 };

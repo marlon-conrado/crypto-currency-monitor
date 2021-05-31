@@ -19,7 +19,7 @@ describe('UserController', () => {
         body: {
           name: 'Marlon',
           lastName: 'Conrado',
-          password: 'Marlon@123',
+          password: 'Marlon123',
           userName: 'elconrado',
           preferredCurrency: 3,
         },
@@ -29,10 +29,26 @@ describe('UserController', () => {
       expect(SignUpUserService.prototype.signUp).toBeCalledWith({
         lastName: 'Conrado',
         name: 'Marlon',
-        password: 'Marlon@123',
+        password: 'Marlon123',
         preferredCurrencyId: 3,
         userName: 'elconrado',
       });
+    });
+
+    it('should return back error by invalid body', async () => {
+      try {
+        await userController.createUser({
+          body: {
+            name: 'Marlon',
+            lastName: 'Conrado',
+            password: 'Marlon123',
+            userName: 'elconrado',
+            preferredCurrency: 4,
+          },
+        });
+      } catch (e) {
+        expect(e.name).toBe('ValidationError');
+      }
     });
   });
 
@@ -40,34 +56,35 @@ describe('UserController', () => {
     it('should login user', async () => {
       const req = {
         body: {
-          name: 'Marlon',
-          lastName: 'Conrado',
-          password: 'Marlon@123',
+          password: 'Marlon123',
           userName: 'elconrado',
-          preferredCurrency: 3,
         },
       };
 
       jest.spyOn(SignInUserService.prototype, 'login').mockResolvedValue({
-        password: 'pass123',
-        name: 'Marlon',
-        lastName: 'Conrado',
+        token: 'token',
       } as any);
 
       const data = await userController.login(req);
 
       expect(SignInUserService.prototype.login).toBeCalledWith({
-        lastName: 'Conrado',
-        name: 'Marlon',
-        password: 'Marlon@123',
-        preferredCurrency: 3,
+        password: 'Marlon123',
         userName: 'elconrado',
       });
 
-      expect(data).toEqual({
-        lastName: 'Conrado',
-        name: 'Marlon',
-      });
+      expect(data).toEqual({ token: 'token' });
+    });
+
+    it('should return back error by invalid body', async () => {
+      try {
+        await userController.login({
+          body: {
+            name: 'hello',
+          },
+        });
+      } catch (e) {
+        expect(e.name).toBe('ValidationError');
+      }
     });
   });
 });

@@ -4,4 +4,6 @@ export enum ApiErrors {
   SequelizeDatabaseError = 'E0002',
   LoginDoesNotMatch = 'E0003',
   UserNotFound = 'E0004',
+  Unauthorized = 'Unauthorized',
+  ValidationError = 'ValidationError',
 }

@@ -55,4 +55,22 @@ describe('ApiResponse', () => {
       expect(fn).toBeCalledWith({ data: { id: '#955' } });
     });
   });
+
+  describe('UNAUTHORIZED', () => {
+    it('should error unauthorized', () => {
+      const fn = jest.fn();
+      const res = {
+        status: () => ({
+          json: fn,
+        }),
+      };
+
+      apiResponse.UNAUTHORIZED(res);
+      expect(fn).toBeCalledWith({
+        error: {
+          code: 'Unauthorized',
+        },
+      });
+    });
+  });
 });

@@ -1,37 +1,35 @@
-import { container, Post } from '../shared';
+import {
+  container,
+  Post,
+  ApplicationError,
+  ApplicationErrors,
+} from '../shared';
 import { SignInUserService, SignUpUserService } from '../services';
+import { CreateUserDto, LoginDto } from '../dto';
 
 const signInUserService = container.resolve(SignInUserService);
 const signUpUserService = container.resolve(SignUpUserService);
 
-type CreateUserDto = {
-  body: {
-    name: string;
-    lastName: string;
-    password: string;
-    userName: string;
-    preferredCurrency: number;
-  };
-};
-
-type GetUserDto = {
-  body: {
-    userName: string;
-    password: string;
-  };
-};
-
 export class UserController {
   @Post('/user/login')
-  async login(req: GetUserDto) {
-    const data = await signInUserService.login(req.body);
-    delete data.password;
+  async login(req: any) {
+    const result = LoginDto.validate(req.body);
 
-    return data;
+    if (result.error) {
+      throw new ApplicationError(ApplicationErrors.ValidationError);
+    }
+
+    return await signInUserService.login(req.body);
   }
 
   @Post('/user/register')
-  async createUser(req: CreateUserDto) {
+  async createUser(req: any) {
+    const result = CreateUserDto.validate(req.body);
+
+    if (result.error) {
+      throw new ApplicationError(ApplicationErrors.ValidationError);
+    }
+
     const {
       lastName,
       name,

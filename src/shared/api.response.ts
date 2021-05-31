@@ -4,7 +4,10 @@ import { ApiErrors } from './errors';
 @injectable()
 export class ApiResponse {
   public ERROR(res: any, error: Error) {
-    const exception = environment.isDevelopment ? error : {};
+    const exception =
+      environment.isDevelopment && Object.keys(error)?.length > 0
+        ? error
+        : error?.toString() + ` ${error?.stack}`;
 
     if (ApiErrors[error?.name]) {
       return res.status(400).json({
@@ -19,6 +22,14 @@ export class ApiResponse {
       error: {
         code: ApiErrors.InternalError,
         exception,
+      },
+    });
+  }
+
+  public UNAUTHORIZED(res: any) {
+    return res.status(401).json({
+      error: {
+        code: ApiErrors.Unauthorized,
       },
     });
   }
