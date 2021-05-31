@@ -11,7 +11,6 @@ describe('SignUpUserService', () => {
 
   describe('signUp', () => {
     it('should create user', async () => {
-
       const mockUser = {
         password: 'Marlon@123',
         userName: 'elconrado',
@@ -19,7 +18,9 @@ describe('SignUpUserService', () => {
         lastName: 'Conrado',
       };
 
-      jest.spyOn(UserRepository.prototype, 'create').mockResolvedValue(mockUser as any);
+      jest
+        .spyOn(UserRepository.prototype, 'create')
+        .mockResolvedValue(mockUser as any);
 
       const user = await signUpUserService.signUp(mockUser as any);
 

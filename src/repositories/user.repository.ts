@@ -20,4 +20,8 @@ export class UserRepository {
   async getByUserName(userName: string): Promise<UserAttributes> {
     return await this.userLocal.getByUserName(userName);
   }
+
+  async getById(id: number): Promise<UserAttributes> {
+    return await this.userLocal.getById(id);
+  }
 }

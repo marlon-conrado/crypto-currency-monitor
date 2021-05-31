@@ -4,4 +4,5 @@ export enum ApplicationErrors {
   SequelizeDatabaseError = 'SequelizeDatabaseError',
   LoginDoesNotMatch = 'LoginDoesNotMatch',
   UserNotFound = 'UserNotFound',
+  ValidationError = 'ValidationError',
 }
