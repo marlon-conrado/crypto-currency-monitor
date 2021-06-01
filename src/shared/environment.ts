@@ -2,6 +2,8 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+const nodeEnv = process.env.NODE_ENV || 'development';
+
 export const environment = {
   port: process.env.PORT || 8080,
   db: {
@@ -12,7 +14,8 @@ export const environment = {
     password: process.env.DB_PASS || '123',
     port: Number(process.env.DB_PORT) || 5432,
   },
-  isDevelopment: process.env.NODE_ENV === 'development',
+  isDevelopment: nodeEnv === 'development',
+  isTest: nodeEnv === 'test',
   saltRounds: 10,
   token: {
     privateKey: process.env.TOKEN_PRIVATE_KEY || 'M123456',

@@ -4,10 +4,14 @@ import { ApiErrors } from './errors';
 @injectable()
 export class ApiResponse {
   public ERROR(res: any, error: Error) {
-    const exception =
-      environment.isDevelopment && Object.keys(error)?.length > 0
-        ? error
-        : error?.toString() + ` ${error?.stack}`;
+    let exception = {};
+
+    if (environment.isDevelopment || environment.isTest) {
+      exception =
+        Object.keys(error)?.length > 0
+          ? error
+          : error?.toString() + ` ${error?.stack}`;
+    }
 
     if (ApiErrors[error?.name]) {
       return res.status(400).json({

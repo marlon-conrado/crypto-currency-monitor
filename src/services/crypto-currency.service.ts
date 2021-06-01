@@ -23,7 +23,7 @@ export class CryptoCurrencyService {
       symbol: currency.symbol,
       name: currency.name,
       image: currency.image,
-      last_updated: currency.last_updated,
+      lastUpdated: currency.last_updated,
       price: currency.current_price,
     }));
   }

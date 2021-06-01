@@ -21,6 +21,6 @@ export class CryptoCurrencyRepository {
       query: { vsCurrency },
     });
 
-    return cryptoCurrencies.data ?? {};
+    return cryptoCurrencies.data;
   }
 }

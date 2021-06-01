@@ -12,7 +12,7 @@ export class ApiRemote {
     return await this.request('get', url, data);
   }
 
-  private async request(method: Method, url: string, data: Data) {
+  async request(method: Method, url: string, data: Data) {
     return await axios[method](this.replaceValuesInUrl(url, data), data.body);
   }
 

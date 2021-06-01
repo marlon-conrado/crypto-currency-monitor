@@ -56,4 +56,17 @@ describe('UserRepository', () => {
       expect(user).toBe('test');
     });
   });
+
+  describe('getByUserName', () => {
+    it('should get user by user name', async () => {
+      jest
+        .spyOn(UserLocal.prototype, 'getById')
+        .mockResolvedValue('test' as any);
+
+      const user = await userRepository.getById(123);
+
+      expect(UserLocal.prototype.getById).toBeCalled();
+      expect(user).toBe('test');
+    });
+  });
 });

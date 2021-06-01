@@ -26,10 +26,18 @@ describe('UserLocal', () => {
   });
 
   describe('getByUserName', () => {
-    it('get user by username', async () => {
+    it('should get user by username', async () => {
       jest.spyOn(UserModel, 'findOne').mockResolvedValue('test' as any);
 
       expect(await userLocal.getByUserName('elconrado')).toEqual('test');
+    });
+  });
+
+  describe('getById', () => {
+    it('should get user by id', async () => {
+      jest.spyOn(UserModel, 'findOne').mockResolvedValue('test' as any);
+
+      expect(await userLocal.getById(123)).toEqual('test');
     });
   });
 });

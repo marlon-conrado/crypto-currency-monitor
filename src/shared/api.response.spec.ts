@@ -22,9 +22,14 @@ describe('ApiResponse', () => {
         new ApplicationError(ApplicationErrors.UserNotFound),
       );
 
-      expect(fn).toBeCalledWith({
-        error: { code: 'E0004', exception: {} },
-      });
+      expect(fn).toBeCalledWith(
+        expect.objectContaining({
+          error: {
+            code: 'E0004',
+            exception: new ApplicationError(ApplicationErrors.UserNotFound),
+          },
+        }),
+      );
     });
 
     it('should response with InternalError', () => {
@@ -36,10 +41,12 @@ describe('ApiResponse', () => {
       };
 
       apiResponse.ERROR(res, new Error('Some Error'));
+      const error = fn.mock.calls[0][0].error;
 
-      expect(fn).toBeCalledWith({
-        error: { code: 'InternalError', exception: {} },
-      });
+      expect(
+        error.exception.includes('Error: Some Error Error: Some Error'),
+      ).toBe(true);
+      expect(error.code).toBe('InternalError');
     });
   });
 
