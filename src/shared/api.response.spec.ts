@@ -25,7 +25,7 @@ describe('ApiResponse', () => {
       expect(fn).toBeCalledWith(
         expect.objectContaining({
           error: {
-            code: 'E0004',
+            code: 'ERROR_0004',
             exception: new ApplicationError(ApplicationErrors.UserNotFound),
           },
         }),

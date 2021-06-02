@@ -1,10 +1,4 @@
-import {
-  injectable,
-  environment,
-  ApplicationError,
-  ApplicationErrors,
-  HttpStatusEnum,
-} from '../shared';
+import { injectable, environment } from '../shared';
 import { ApiRemote } from '../remote';
 import { CryptoCurrencyLocal, CryptoCurrencyAttributes } from '../local';
 
@@ -42,36 +36,28 @@ export class CryptoCurrencyRepository {
     const coingecko = environment.endpoints.coingecko;
     const url = `${coingecko.base}/${coingecko.methods.coin}`;
 
-    try {
-      const result = await this.apiRemote.get(url, {
-        query: {
-          coinId: data.coinId,
-          tickers: false,
-          marketData: true,
-          communityData: false,
-          developerData: false,
-          sparkLine: false,
-        },
-      });
+    const result = await this.apiRemote.get(url, {
+      query: {
+        coinId: data.coinId,
+        tickers: false,
+        marketData: true,
+        communityData: false,
+        developerData: false,
+        sparkLine: false,
+      },
+    });
 
-      const cryptoCurrency = result.data;
-      return await this.cryptoCurrencyLocal.add({
-        coinId: cryptoCurrency.id,
-        name: cryptoCurrency.name,
-        symbol: cryptoCurrency.symbol,
-        arsPrice: cryptoCurrency.market_data.current_price.ars,
-        usdPrice: cryptoCurrency.market_data.current_price.usd,
-        eurPrice: cryptoCurrency.market_data.current_price.eur,
-        lastUpdated: cryptoCurrency.last_updated,
-        image: cryptoCurrency.image.large,
-        userId: data.userId,
-      });
-    } catch (e) {
-      if (e?.response?.status === HttpStatusEnum.NOT_FOUND) {
-        throw new ApplicationError(ApplicationErrors.CoinNotFound);
-      }
-
-      throw e;
-    }
+    const cryptoCurrency = result.data;
+    return await this.cryptoCurrencyLocal.add({
+      coinId: cryptoCurrency.id,
+      name: cryptoCurrency.name,
+      symbol: cryptoCurrency.symbol,
+      arsPrice: cryptoCurrency.market_data.current_price.ars,
+      usdPrice: cryptoCurrency.market_data.current_price.usd,
+      eurPrice: cryptoCurrency.market_data.current_price.eur,
+      lastUpdated: cryptoCurrency.last_updated,
+      image: cryptoCurrency.image.large,
+      userId: data.userId,
+    });
   }
 }

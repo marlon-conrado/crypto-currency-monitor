@@ -22,6 +22,7 @@ describe('CryptoCurrencyService', () => {
         .spyOn(CryptoCurrencyRepository.prototype, 'getCoinsMarkets')
         .mockResolvedValue([
           {
+            id: 'bitcoin',
             symbol: 'symbol',
             name: 'name',
             image: 'image',
@@ -37,6 +38,7 @@ describe('CryptoCurrencyService', () => {
       );
       expect(result).toEqual([
         {
+          coinId: 'bitcoin',
           image: 'image',
           lastUpdated: 'last_updated',
           name: 'name',

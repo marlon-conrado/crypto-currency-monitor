@@ -1,7 +1,7 @@
 import { ApiResponse } from '../api.response';
 import { app } from '../../app';
 
-function HandleError(controller: any, pFunction: any) {
+export function HandleError(controller: any, pFunction: any) {
   return async function (req: any, res: any) {
     try {
       const data = await pFunction.apply(controller, [req, res]);
