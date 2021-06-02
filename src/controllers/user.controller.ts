@@ -47,6 +47,7 @@ export class UserController {
     });
 
     delete data.password;
+    delete data.id;
     return data;
   }
 }

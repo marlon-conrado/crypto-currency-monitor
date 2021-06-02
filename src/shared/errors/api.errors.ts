@@ -1,9 +1,10 @@
 export enum ApiErrors {
-  SequelizeUniqueConstraintError = 'E0001',
+  SequelizeUniqueConstraintError = 'ERROR_0001',
   InternalError = 'InternalError',
-  SequelizeDatabaseError = 'E0002',
-  LoginDoesNotMatch = 'E0003',
-  UserNotFound = 'E0004',
+  SequelizeDatabaseError = 'ERROR_0002',
+  LoginDoesNotMatch = 'ERROR_0003',
+  UserNotFound = 'ERROR_0004',
   Unauthorized = 'Unauthorized',
   ValidationError = 'ValidationError',
+  CoinNotFound = 'ERROR_0005',
 }

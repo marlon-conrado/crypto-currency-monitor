@@ -5,4 +5,5 @@ export enum ApplicationErrors {
   LoginDoesNotMatch = 'LoginDoesNotMatch',
   UserNotFound = 'UserNotFound',
   ValidationError = 'ValidationError',
+  CoinNotFound = 'CoinNotFound',
 }

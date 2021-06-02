@@ -1,3 +1,3 @@
-import { injectable, container, inject } from 'tsyringe';
+import { injectable, container } from 'tsyringe';
 
-export { injectable, container, inject };
+export { injectable, container };

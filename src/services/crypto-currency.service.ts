@@ -20,6 +20,7 @@ export class CryptoCurrencyService {
       );
 
     return cryptoCurrencies.map((currency) => ({
+      coinId: currency.id,
       symbol: currency.symbol,
       name: currency.name,
       image: currency.image,

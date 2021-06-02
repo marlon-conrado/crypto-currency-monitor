@@ -28,6 +28,7 @@ export const environment = {
         'https://api.coingecko.com/api/v3',
       methods: {
         coinsMarkets: 'coins/markets?vs_currency={q.vsCurrency}',
+        coin: 'coins/{q.coinId}?tickers={q.tickers}&market_data={q.marketData}&community_data={q.communityData}&developer_data={q.developerData}&sparkline={q.sparkLine}',
       },
     },
   },
