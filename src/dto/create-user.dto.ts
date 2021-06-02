@@ -1,7 +1,15 @@
 import Joi from 'joi';
 import { PreferredCurrencyEnum } from '../shared';
 
-export const CreateUserDto = Joi.object({
+export interface SignUpDto {
+  password: string;
+  lastName: string;
+  name: string;
+  userName: string;
+  preferredCurrency: number;
+}
+
+export const SignUpBodySchema = Joi.object({
   password: Joi.string().alphanum().min(8).max(20).required(),
   lastName: Joi.string().required(),
   name: Joi.string().required(),

@@ -5,7 +5,7 @@ describe('UserController', () => {
   let userController: UserController;
   beforeEach(() => {
     SignUpUserService.prototype.signUp = jest.fn();
-    SignInUserService.prototype.login = jest.fn();
+    SignInUserService.prototype.signIn = jest.fn();
     userController = new UserController();
   });
 
@@ -52,7 +52,7 @@ describe('UserController', () => {
     });
   });
 
-  describe('login', () => {
+  describe('signIn', () => {
     it('should login user', async () => {
       const req = {
         body: {
@@ -61,13 +61,13 @@ describe('UserController', () => {
         },
       };
 
-      jest.spyOn(SignInUserService.prototype, 'login').mockResolvedValue({
+      jest.spyOn(SignInUserService.prototype, 'signIn').mockResolvedValue({
         token: 'token',
       } as any);
 
-      const data = await userController.login(req);
+      const data = await userController.signIn(req);
 
-      expect(SignInUserService.prototype.login).toBeCalledWith({
+      expect(SignInUserService.prototype.signIn).toBeCalledWith({
         password: 'Marlon123',
         userName: 'elconrado',
       });
@@ -76,15 +76,18 @@ describe('UserController', () => {
     });
 
     it('should return back error by invalid body', async () => {
+      let error: any;
       try {
-        await userController.login({
+        await userController.signIn({
           body: {
-            name: 'hello',
+            userName: 'hello',
+            password: 'thing@123',
           },
         });
       } catch (e) {
-        expect(e.name).toBe('ValidationError');
+        error = e;
       }
+      expect(error.name).toBe('ValidationError');
     });
   });
 });

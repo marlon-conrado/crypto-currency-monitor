@@ -23,7 +23,7 @@ export class SignInUserService {
     private tokenRepository: TokenRepository,
   ) {}
 
-  async login(user: Input): Promise<Output> {
+  async signIn(user: Input): Promise<Output> {
     const userFound = await this.userRepository.getByUserName(user.userName);
 
     if (!userFound) {

@@ -5,26 +5,31 @@ import {
   ApplicationErrors,
 } from '../shared';
 import { SignInUserService, SignUpUserService } from '../services';
-import { CreateUserDto, LoginDto } from '../dto';
+import {
+  SignUpDto,
+  SignUpBodySchema,
+  SignInDto,
+  SignInBodySchema,
+} from '../dto';
 
 const signInUserService = container.resolve(SignInUserService);
 const signUpUserService = container.resolve(SignUpUserService);
 
 export class UserController {
-  @Post('/user/login')
-  async login(req: any) {
-    const result = LoginDto.validate(req.body);
+  @Post('/user/sign_in')
+  async signIn(req: { body: SignInDto }) {
+    const result = SignInBodySchema.validate(req.body);
 
     if (result.error) {
       throw new ApplicationError(ApplicationErrors.ValidationError);
     }
 
-    return await signInUserService.login(req.body);
+    return await signInUserService.signIn(req.body);
   }
 
-  @Post('/user/register')
-  async createUser(req: any) {
-    const result = CreateUserDto.validate(req.body);
+  @Post('/user/sign_up')
+  async createUser(req: { body: SignUpDto }) {
+    const result = SignUpBodySchema.validate(req.body);
 
     if (result.error) {
       throw new ApplicationError(ApplicationErrors.ValidationError);

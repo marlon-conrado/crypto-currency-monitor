@@ -37,5 +37,18 @@ describe('CryptoCurrencyController', () => {
       });
       expect(result).toEqual({ foo: 'foo' });
     });
+
+    it('should throw ValidationError to send invalid body', async () => {
+      let error: any;
+      try {
+        await cryptoCurrencyController.add({
+          body: {},
+        } as any);
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.name).toBe('ValidationError');
+    });
   });
 });

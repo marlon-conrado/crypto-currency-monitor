@@ -33,7 +33,7 @@ describe('SignInUserService', () => {
 
       jest.spyOn(TokenRepository.prototype, 'sign').mockResolvedValue('token');
 
-      const user = await signInUserService.login({
+      const user = await signInUserService.signIn({
         password: 'Marlon@123',
         userName: 'elconrado',
       });
@@ -50,7 +50,7 @@ describe('SignInUserService', () => {
         .mockResolvedValue(null);
 
       try {
-        await signInUserService.login({
+        await signInUserService.signIn({
           password: 'Marlon@123',
           userName: 'elconrado',
         });
@@ -70,7 +70,7 @@ describe('SignInUserService', () => {
         .mockResolvedValue(false);
 
       try {
-        await signInUserService.login({
+        await signInUserService.signIn({
           password: 'Marlon@123',
           userName: 'elconrado',
         });
