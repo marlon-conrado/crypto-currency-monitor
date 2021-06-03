@@ -1,22 +1,23 @@
 import { Model, DataTypes } from 'sequelize';
 import { database } from '../database.local';
+import { PreferredCurrencyNameEnum } from '../../shared';
 
 export interface PreferredCurrencyAttributes {
   id?: number;
-  name: string;
+  name: PreferredCurrencyNameEnum;
   message: string;
 }
 
-export class PreferredCurrencyModel
+export class CurrencyTypeModel
   extends Model<PreferredCurrencyAttributes, PreferredCurrencyAttributes>
   implements PreferredCurrencyAttributes
 {
   id!: number;
-  name: string;
+  name: PreferredCurrencyNameEnum;
   message: string;
 }
 
-PreferredCurrencyModel.init(
+CurrencyTypeModel.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -30,5 +31,5 @@ PreferredCurrencyModel.init(
       type: DataTypes.STRING,
     },
   },
-  { tableName: 'preferred_currency', timestamps: false, sequelize: database },
+  { tableName: 'currency_type', timestamps: false, sequelize: database },
 );

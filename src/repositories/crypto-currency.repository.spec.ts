@@ -1,6 +1,6 @@
 import { CryptoCurrencyRepository } from './crypto-currency.repository';
 import { ApiRemote } from '../remote';
-import { CryptoCurrencyLocal } from '../local';
+import { CryptoCurrencyLocal, CurrencyPriceLocal } from '../local';
 
 describe('CryptoCurrencyRepository', () => {
   let cryptoCurrencyRepository: CryptoCurrencyRepository;
@@ -9,6 +9,7 @@ describe('CryptoCurrencyRepository', () => {
     cryptoCurrencyRepository = new CryptoCurrencyRepository(
       ApiRemote.prototype,
       CryptoCurrencyLocal.prototype,
+      CurrencyPriceLocal.prototype,
     );
   });
 

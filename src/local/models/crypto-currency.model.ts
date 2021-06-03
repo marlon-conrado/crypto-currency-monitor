@@ -9,9 +9,6 @@ export interface CryptoCurrencyAttributes {
   name: string;
   image?: string;
   lastUpdated: string;
-  arsPrice: number;
-  usdPrice: number;
-  eurPrice: number;
 }
 
 export class CryptoCurrencyModel
@@ -25,9 +22,6 @@ export class CryptoCurrencyModel
   name: string;
   image?: string;
   lastUpdated: string;
-  arsPrice: number;
-  usdPrice: number;
-  eurPrice: number;
 }
 
 CryptoCurrencyModel.init(
@@ -57,18 +51,6 @@ CryptoCurrencyModel.init(
     lastUpdated: {
       type: DataTypes.DATE,
       field: 'last_updated',
-    },
-    arsPrice: {
-      type: DataTypes.FLOAT,
-      field: 'ars_price',
-    },
-    usdPrice: {
-      type: DataTypes.FLOAT,
-      field: 'usd_price',
-    },
-    eurPrice: {
-      type: DataTypes.FLOAT,
-      field: 'eur_price',
     },
   },
   { tableName: 'crypto_currency', timestamps: false, sequelize: database },

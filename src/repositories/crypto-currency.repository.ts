@@ -1,6 +1,17 @@
-import { injectable, environment } from '../shared';
+import {
+  injectable,
+  environment,
+  PreferredCurrencyEnum,
+  PreferredCurrencyNameEnum,
+} from '../shared';
 import { ApiRemote } from '../remote';
-import { CryptoCurrencyLocal, CryptoCurrencyAttributes } from '../local';
+import {
+  CryptoCurrencyLocal,
+  CryptoCurrencyAttributes,
+  CurrencyPriceLocal,
+  CryptoCurrencyGetTopInput,
+} from '../local';
+import { database } from '../local/database.local';
 
 type GetCoinsMarketsOutput = {
   id: string;
@@ -16,6 +27,7 @@ export class CryptoCurrencyRepository {
   constructor(
     private apiRemote: ApiRemote,
     private cryptoCurrencyLocal: CryptoCurrencyLocal,
+    private currencyPriceLocal: CurrencyPriceLocal,
   ) {}
 
   async getCoinsMarkets(vsCurrency: string): Promise<GetCoinsMarketsOutput> {
@@ -27,6 +39,12 @@ export class CryptoCurrencyRepository {
     });
 
     return cryptoCurrencies.data;
+  }
+
+  async getTop(
+    data: CryptoCurrencyGetTopInput,
+  ): Promise<CryptoCurrencyAttributes[]> {
+    return await this.cryptoCurrencyLocal.getTop(data);
   }
 
   async add(data: {
@@ -47,17 +65,57 @@ export class CryptoCurrencyRepository {
       },
     });
 
-    const cryptoCurrency = result.data;
-    return await this.cryptoCurrencyLocal.add({
-      coinId: cryptoCurrency.id,
-      name: cryptoCurrency.name,
-      symbol: cryptoCurrency.symbol,
-      arsPrice: cryptoCurrency.market_data.current_price.ars,
-      usdPrice: cryptoCurrency.market_data.current_price.usd,
-      eurPrice: cryptoCurrency.market_data.current_price.eur,
-      lastUpdated: cryptoCurrency.last_updated,
-      image: cryptoCurrency.image.large,
-      userId: data.userId,
+    return await database.transaction(async (t) => {
+      const cryptoCurrency = result.data;
+      const cryptoCurrencyResult = await this.cryptoCurrencyLocal.add(
+        {
+          coinId: cryptoCurrency.id,
+          name: cryptoCurrency.name,
+          symbol: cryptoCurrency.symbol,
+          lastUpdated: cryptoCurrency.last_updated,
+          image: cryptoCurrency.image.large,
+          userId: data.userId,
+        },
+        t,
+      );
+
+      await this.addCoinPrices(
+        cryptoCurrencyResult.id,
+        cryptoCurrency.market_data.current_price,
+        t,
+      );
+
+      return cryptoCurrencyResult;
     });
+  }
+
+  private async addCoinPrices(
+    cryptoCurrencyId: number,
+    prices: any[],
+    dbTransaction: any,
+  ) {
+    const availableCurrencies = [
+      PreferredCurrencyNameEnum.ars,
+      PreferredCurrencyNameEnum.eur,
+      PreferredCurrencyNameEnum.usd,
+    ];
+
+    const coinPricesPromises = Object.keys(prices)
+      .filter((key: PreferredCurrencyNameEnum) =>
+        availableCurrencies.includes(key),
+      )
+      .map(async (key) => {
+        const price = prices[key];
+        await this.currencyPriceLocal.add(
+          {
+            price,
+            currencyTypeId: PreferredCurrencyEnum[key],
+            cryptoCurrencyId,
+          },
+          dbTransaction,
+        );
+      });
+
+    await Promise.all(coinPricesPromises);
   }
 }

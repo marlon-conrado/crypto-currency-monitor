@@ -1,5 +1,5 @@
 import { injectable } from '../../shared';
-import { UserModel, UserAttributes, PreferredCurrencyModel } from '../models';
+import { UserModel, UserAttributes, CurrencyTypeModel } from '../models';
 
 @injectable()
 export class UserLocal {
@@ -20,7 +20,7 @@ export class UserLocal {
       where: { id },
       include: [
         {
-          model: PreferredCurrencyModel,
+          model: CurrencyTypeModel,
           as: 'preferredCurrency',
           required: true,
         },

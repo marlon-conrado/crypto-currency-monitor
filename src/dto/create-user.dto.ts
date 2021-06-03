@@ -9,7 +9,7 @@ export interface SignUpDto {
   preferredCurrency: number;
 }
 
-export const SignUpBodySchema = Joi.object({
+export const SignUpBodySchema = Joi.object<SignUpDto>({
   password: Joi.string().alphanum().min(8).max(20).required(),
   lastName: Joi.string().required(),
   name: Joi.string().required(),

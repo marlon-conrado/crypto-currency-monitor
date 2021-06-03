@@ -1,7 +1,7 @@
 import { database } from '../database.local';
 import { Model, Optional, DataTypes } from 'sequelize';
 import {
-  PreferredCurrencyModel,
+  CurrencyTypeModel,
   PreferredCurrencyAttributes,
 } from './preferred-currency.model';
 
@@ -72,13 +72,13 @@ UserModel.init(
   { tableName: 'user', timestamps: true, sequelize: database },
 );
 
-UserModel.belongsTo(PreferredCurrencyModel, {
+UserModel.belongsTo(CurrencyTypeModel, {
   targetKey: 'id',
   foreignKey: 'preferred_currency_id',
   as: 'preferredCurrency',
 });
 
-PreferredCurrencyModel.hasMany(UserModel, {
+CurrencyTypeModel.hasMany(UserModel, {
   sourceKey: 'id',
   foreignKey: 'preferred_currency_id',
   as: 'preferredCurrency',
