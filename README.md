@@ -22,3 +22,7 @@ Must create file .env in the root of the project
 #### Run app
 
 - `npm run dev` or `yarn dev`
+
+#### Unit testing and coverage
+
+- `ỳarn test --coverage`
