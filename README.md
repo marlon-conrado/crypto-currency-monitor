@@ -10,6 +10,8 @@
 
 #### Mandatory environment variables
 
+Must create file .env in the root of the project
+
 - DB_HOST
 - DB_PASS
 - DB_USER_NAME
